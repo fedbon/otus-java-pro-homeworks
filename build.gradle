@@ -23,17 +23,3 @@ allprojects {
         }
     }
 }
-
-//./gradlew -q managedVersions
-tasks.register("managedVersions") {
-    doLast {
-        dependencyManagement.managedVersions.each {
-            println it
-        }
-    }
-}
-
-//./gradlew -q hello
-tasks.register("hello") { hello ->
-    println 'Hello world!'
-}
