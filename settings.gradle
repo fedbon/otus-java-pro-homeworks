@@ -1,2 +1,4 @@
 rootProject.name = 'otusJavaPro'
-include 'hw01-gradle', 'hw02-collections'
+include 'hw01-gradle'
+include 'hw02-collections'
+include 'hw03-testing-framework'
