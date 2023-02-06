@@ -18,7 +18,7 @@ public class CalcDemo {
         long counter = 100_000_000;
         var summator = new Summator();
         long startTime = System.currentTimeMillis();
-        Data data = new Data();
+        var data = new Data();
 
         for (var idx = 0; idx < counter; idx++) {
             data.setValue(idx);

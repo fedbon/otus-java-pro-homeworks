@@ -11,7 +11,6 @@ public class Summator {
     private int someValue = 0;
     private final List<Data> listValues = new ArrayList<>();
 
-    //!!! сигнатуру метода менять нельзя
     public void calc(Data data) {
         listValues.add(data);
         if (listValues.size() % 6_600_000 == 0) {
@@ -30,23 +29,23 @@ public class Summator {
         }
     }
 
-    public Integer getSum() {
+    public int getSum() {
         return sum;
     }
 
-    public Integer getPrevValue() {
+    public int getPrevValue() {
         return prevValue;
     }
 
-    public Integer getPrevPrevValue() {
+    public int getPrevPrevValue() {
         return prevPrevValue;
     }
 
-    public Integer getSumLastThreeValues() {
+    public int getSumLastThreeValues() {
         return sumLastThreeValues;
     }
 
-    public Integer getSomeValue() {
+    public int getSomeValue() {
         return someValue;
     }
 }
