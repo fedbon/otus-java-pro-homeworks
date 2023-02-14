@@ -19,18 +19,18 @@ class Ioc {
     }
 
     private static Map<String, List<Integer>> collectLoggedMethods(String className, Map<String,
-            List<Integer>> methods) throws ClassNotFoundException {
+            List<Integer>> loggedMethods) throws ClassNotFoundException {
         Class<?> clazz = Class.forName(className);
         Method[] declaredMethods = clazz.getDeclaredMethods();
         for (var method : declaredMethods) {
             if (method.isAnnotationPresent(Log.class)) {
-                if (!methods.containsKey(method.getName())) {
-                    methods.put(method.getName(), new ArrayList<>());
+                if (!loggedMethods.containsKey(method.getName())) {
+                    loggedMethods.put(method.getName(), new ArrayList<>());
                 }
-                methods.get(method.getName()).add(method.getParameterCount());
+                loggedMethods.get(method.getName()).add(method.getParameterCount());
             }
         }
-        return methods;
+        return loggedMethods;
     }
 
     static class LoggingInvocationHandler implements InvocationHandler {
