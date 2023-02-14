@@ -11,7 +11,7 @@ class Ioc {
     }
 
     static TestLoggingInterface createTestLoggingClass() throws ClassNotFoundException {
-        var handler = new LoggingHandler(new TestLogging(),
+        var handler = new LoggingInvocationHandler(new TestLogging(),
                 collectLoggedMethods(TestLogging.class.getName(), new HashMap<>()));
 
         return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
@@ -33,12 +33,12 @@ class Ioc {
         return methods;
     }
 
-    static class LoggingHandler implements InvocationHandler {
+    static class LoggingInvocationHandler implements InvocationHandler {
 
         private final TestLoggingInterface testLoggingClass;
         private final Map<String, List<Integer>> loggedMethods;
 
-        LoggingHandler(TestLoggingInterface testLoggingClass, Map<String, List<Integer>> loggedMethods) {
+        LoggingInvocationHandler(TestLoggingInterface testLoggingClass, Map<String, List<Integer>> loggedMethods) {
             this.testLoggingClass = testLoggingClass;
             this.loggedMethods = loggedMethods;
         }
