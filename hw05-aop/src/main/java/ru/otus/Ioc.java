@@ -10,27 +10,26 @@ class Ioc {
     private Ioc() {
     }
 
-    static TestLoggingInterface createTestLoggingClass() throws ClassNotFoundException {
+    static TestLoggingInterface createTestLoggingClass() {
         var handler = new LoggingInvocationHandler(new TestLogging(),
-                collectLoggedMethods(TestLogging.class.getName(), new HashMap<>()));
+                collectMethods(new HashMap<>()));
 
         return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
                 new Class<?>[]{TestLoggingInterface.class}, handler);
     }
 
-    private static Map<String, List<Integer>> collectLoggedMethods(String className, Map<String,
-            List<Integer>> loggedMethods) throws ClassNotFoundException {
-        Class<?> clazz = Class.forName(className);
-        Method[] declaredMethods = clazz.getDeclaredMethods();
+    private static Map<String, List<Integer>> collectMethods(Map<String,
+            List<Integer>> methods) {
+        Method[] declaredMethods = TestLogging.class.getDeclaredMethods();
         for (var method : declaredMethods) {
             if (method.isAnnotationPresent(Log.class)) {
-                if (!loggedMethods.containsKey(method.getName())) {
-                    loggedMethods.put(method.getName(), new ArrayList<>());
+                if (!methods.containsKey(method.getName())) {
+                    methods.put(method.getName(), new ArrayList<>());
                 }
-                loggedMethods.get(method.getName()).add(method.getParameterCount());
+                methods.get(method.getName()).add(method.getParameterCount());
             }
         }
-        return loggedMethods;
+        return methods;
     }
 
     static class LoggingInvocationHandler implements InvocationHandler {

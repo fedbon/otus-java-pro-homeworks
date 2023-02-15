@@ -1,7 +1,7 @@
 package ru.otus;
 
 public class DynamicProxyDemo {
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
 
         var testLogging = Ioc.createTestLoggingClass();
         testLogging.calculation(Integer.MAX_VALUE);
