@@ -20,8 +20,7 @@ class Ioc {
 
     private static Map<String, List<Integer>> collectMethods(Map<String,
             List<Integer>> methods) {
-        Method[] declaredMethods = TestLogging.class.getDeclaredMethods();
-        for (var method : declaredMethods) {
+        for (var method : TestLogging.class.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Log.class)) {
                 if (!methods.containsKey(method.getName())) {
                     methods.put(method.getName(), new ArrayList<>());
