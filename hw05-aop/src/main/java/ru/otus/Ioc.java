@@ -11,15 +11,13 @@ class Ioc {
     }
 
     static TestLoggingInterface createTestLoggingClass() {
-        var handler = new LoggingInvocationHandler(new TestLogging(),
-                collectMethods(new HashMap<>()));
+        var handler = new LoggingInvocationHandler(new TestLogging(), collectMethods(new HashMap<>()));
 
         return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
                 new Class<?>[]{TestLoggingInterface.class}, handler);
     }
 
-    private static Map<String, List<Integer>> collectMethods(Map<String,
-            List<Integer>> methods) {
+    private static Map<String, List<Integer>> collectMethods(Map<String, List<Integer>> methods) {
         for (var method : TestLogging.class.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Log.class)) {
                 if (!methods.containsKey(method.getName())) {
