@@ -1,58 +1,28 @@
 package ru.otus;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.*;
 
 class Ioc {
-
     private Ioc() {
     }
 
-    static TestLoggingInterface createTestLoggingClass() {
-        var handler = new LoggingInvocationHandler(new TestLogging(), collectMethods(new HashMap<>()));
-
-        return (TestLoggingInterface) Proxy.newProxyInstance(Ioc.class.getClassLoader(),
-                new Class<?>[]{TestLoggingInterface.class}, handler);
+    public static <T> T createProxy(Class<? extends T> targetClass) {
+        T instance = createInstance(targetClass);
+        return replaceWithProxy(instance, targetClass);
     }
 
-    private static Map<String, List<Integer>> collectMethods(Map<String, List<Integer>> methods) {
-        for (var method : TestLogging.class.getDeclaredMethods()) {
-            if (method.isAnnotationPresent(Log.class)) {
-                if (!methods.containsKey(method.getName())) {
-                    methods.put(method.getName(), new ArrayList<>());
-                }
-                methods.get(method.getName()).add(method.getParameterCount());
-            }
-        }
-        return methods;
+    private static <T> T replaceWithProxy(T instance, Class<? extends T> targetClass) {
+        InvocationHandler handler = new LoggingHandler(instance, targetClass);
+        return (T) Proxy.newProxyInstance(targetClass.getClassLoader(), targetClass.getInterfaces(), handler);
     }
 
-    static class LoggingInvocationHandler implements InvocationHandler {
-
-        private final TestLoggingInterface testLoggingClass;
-        private final Map<String, List<Integer>> loggedMethods;
-
-        LoggingInvocationHandler(TestLoggingInterface testLoggingClass, Map<String, List<Integer>> loggedMethods) {
-            this.testLoggingClass = testLoggingClass;
-            this.loggedMethods = loggedMethods;
+    private static <T> T createInstance(Class<? extends T> targetClass) {
+        try {
+            return targetClass.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (loggedMethods.containsKey(method.getName()) &&
-                    loggedMethods.get(method.getName()).contains(method.getParameterCount())) {
-                System.out.printf("executed method: %s, param: %s%n", method.getName(), Arrays.toString(args));
-            }
-            return method.invoke(testLoggingClass, args);
-        }
-
-        @Override
-        public String toString() {
-            return "DemoInvocationHandler{" +
-                    "testLoggingClass=" + testLoggingClass +
-                    '}';
-        }
+        return null;
     }
 }
