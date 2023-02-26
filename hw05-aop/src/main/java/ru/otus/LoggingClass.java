@@ -1,6 +1,6 @@
 package ru.otus;
 
-public class TestLogging implements FirstTestLoggingInterface, SecondTestLoggingInterface {
+public class LoggingClass implements FirstInterface, SecondInterface {
     @Log
     @Override
     public void calculate(int param) {

@@ -1,6 +1,6 @@
 package ru.otus;
 
-public interface FirstTestLoggingInterface {
+public interface FirstInterface {
     void calculate(int firstParam);
 
     void calculate(int firstParam, int secondParam);
