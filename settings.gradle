@@ -6,3 +6,4 @@ include 'hw03-testing-framework'
 include 'hw04-gc'
 
 include 'hw05-aop'
+include 'hw06-atm'
