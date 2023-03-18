@@ -46,8 +46,8 @@ public class WithdrawCommand implements Transaction {
         }
     }
 
-    private void returnBillsToAtmCassettes(List<Bill> resultCash) {
-        resultCash.stream()
+    private void returnBillsToAtmCassettes(List<Bill> billsForWithdraw) {
+        billsForWithdraw.stream()
             .collect(Collectors.groupingBy(Bill::denomination, Collectors.toList()))
                 .forEach((denomination, bills) -> {
                     for (var atmCassette : cassettesVault) {
