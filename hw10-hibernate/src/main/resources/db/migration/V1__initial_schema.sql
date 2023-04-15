@@ -15,20 +15,23 @@ create sequence phones_sequence start with 1 increment by 1;
 
 create table addresses
 (
-    address_id   bigint not null primary key,
-    street varchar(255),
-    client_id bigint
-);
-
-create table phones
-(
-    phone_id   bigint not null primary key,
-    number varchar(255),
-    client_id bigint
+    id   bigint not null primary key,
+    street varchar(50)
 );
 
 create table clients
 (
-    client_id   bigint not null primary key,
-    name varchar(50)
+    id   bigint not null primary key,
+    name varchar(50),
+    address_id bigint,
+    foreign key (address_id) references addresses(id)
+);
+
+
+create table phones
+(
+    id   bigint not null primary key,
+    number varchar(50),
+    client_id bigint,
+    foreign key (client_id) references clients(id)
 );

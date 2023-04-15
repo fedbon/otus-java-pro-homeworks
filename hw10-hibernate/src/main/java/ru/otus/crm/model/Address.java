@@ -2,6 +2,7 @@ package ru.otus.crm.model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,26 +10,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address implements Cloneable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addresses_generator")
     @SequenceGenerator(name = "addresses_generator", sequenceName = "addresses_sequence", allocationSize = 1)
-    @Column(name = "address_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addresses_generator")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "street", nullable = false)
+    @Column(name = "street")
     private String street;
 
-    @OneToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    public Address(Long id, String street) {
-        this.id = id;
-        this.street = street;
+    @Override
+    public Address clone() {
+        return new Address(id, street);
     }
 
     @Override
