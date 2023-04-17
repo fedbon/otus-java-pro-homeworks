@@ -47,9 +47,9 @@ public class Client implements Cloneable {
 
     @Override
     public Client clone() {
-        var address = this.address == null ? null : this.address.clone();
-        var phones = this.phones == null ? null : this.phones.stream().map(Phone::clone).toList();
-        return new Client(this.id, this.name, address, phones);
+        var clonedAddress = this.address == null ? null : this.address.clone();
+        var clonedPhones = this.phones == null ? null : this.phones.stream().map(Phone::clone).toList();
+        return new Client(this.id, this.name, clonedAddress, clonedPhones);
     }
 
     @Override
