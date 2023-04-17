@@ -18,7 +18,7 @@ class CETest {
         loopWithKeys((key) -> cacheEngine.put(key, new Object()));
     }
 
-    @DisplayName("после запуска gc кеш должен очиститься")
+    @DisplayName("после запуска gc кэш должен очиститься")
     @Test
     void clearCache() throws InterruptedException {
         loopWithKeys((key) -> Assertions.assertNotNull(cacheEngine.get(key)));

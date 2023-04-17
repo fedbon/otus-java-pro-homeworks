@@ -39,7 +39,7 @@ class CEPerformanceTest {
         return (System.nanoTime() - start) / 1000_000;
     }
 
-    @DisplayName("производительность выше с кешем, чем без")
+    @DisplayName("производительность должна быть выше с кэшем, чем без")
     @Test
     void withCacheFasterThanWithoutCache() {
         for (int i = 1; i < 3_000; i++) {
