@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Клиенты</title>
+    <title>База данных клиентов</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,14 +26,21 @@
             margin-bottom: 10px;
         }
 
-        input[type="submit"] {
-            background-color: #4CAF50;
+		input[type="submit"] {
             color: #fff;
             border: none;
+            text-decoration: none;
             border-radius: 4px;
             padding: 10px 20px;
             font-size: 14px;
             cursor: pointer;
+            transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            background-color: #4CAF50;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgba(76, 175, 80, 0.8);
+            color: #fff;
         }
 
         table {
@@ -59,7 +66,7 @@
 </head>
 
 <body>
-<h4>Добавить нового клиента в базу данных</h4>
+<h4>Добавить нового клиента</h4>
 <form action="/api/client" method="post">
     <p><label for="name"></label><input type="text" id="name" name="name" placeholder="Введите имя клиента"></p>
     <p><label for="address"></label><input type="text" id="address" name="address" placeholder="Введите адрес клиента"></p>
