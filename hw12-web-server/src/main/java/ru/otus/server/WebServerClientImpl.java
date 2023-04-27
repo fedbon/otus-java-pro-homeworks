@@ -9,7 +9,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import ru.otus.crm.service.DBServiceClient;
 import ru.otus.helpers.FileSystemHelper;
 import ru.otus.services.TemplateProcessor;
-import ru.otus.servlet.ClientApiServlet;
 import ru.otus.servlet.ClientServlet;
 
 
@@ -54,7 +53,7 @@ public class WebServerClientImpl implements WebServerClient {
 
         var handlers = new HandlerList();
         handlers.addHandler(resourceHandler);
-        handlers.addHandler(applySecurity(servletContextHandler, "/clients", "/api/client/*"));
+        handlers.addHandler(applySecurity(servletContextHandler, "/clients"));
 
 
         server.setHandler(handlers);
@@ -76,7 +75,6 @@ public class WebServerClientImpl implements WebServerClient {
     private ServletContextHandler createServletContextHandler() {
         var servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servletContextHandler.addServlet(new ServletHolder(new ClientServlet(templateProcessor, dbServiceClient)), "/clients");
-        servletContextHandler.addServlet(new ServletHolder(new ClientApiServlet(dbServiceClient)), "/api/client/*");
         return servletContextHandler;
     }
 }
