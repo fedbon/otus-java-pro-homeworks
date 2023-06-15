@@ -22,3 +22,4 @@ include 'hw13-ioc-container'
 include 'hw14-spring-data-jdbc'
 
 include 'hw15-threads'
+include 'hw16-queues'
