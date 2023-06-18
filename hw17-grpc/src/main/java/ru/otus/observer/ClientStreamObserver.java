@@ -11,7 +11,7 @@ public class ClientStreamObserver implements StreamObserver<NumberResponse> {
 
     @Override
     public void onNext(NumberResponse value) {
-        log.info("new value:{}", value.getNumber());
+        log.info("new value from server:{}", value.getNumber());
         setLastValue(value.getNumber());
     }
 
