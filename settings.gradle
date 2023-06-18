@@ -25,3 +25,6 @@ include 'hw15-threads'
 include 'hw16-queues'
 
 include 'hw17-grpc'
+
+include 'hw18-webflux-chat:client-service'
+include 'hw18-webflux-chat:datastore-service'
