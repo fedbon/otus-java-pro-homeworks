@@ -1,11 +1,14 @@
 package ru.otus;
 
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.otus.generated.NumberRequest;
 import ru.otus.generated.RemoteNumServiceGrpc;
 import ru.otus.observer.ClientStreamObserver;
+
+import java.util.concurrent.CountDownLatch;
 
 
 public class GRPCClient {
@@ -16,18 +19,19 @@ public class GRPCClient {
 
     private long value = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         log.info("client started...");
 
         var channel = ManagedChannelBuilder.forAddress(SERVER_HOST, SERVER_PORT)
                 .usePlaintext()
                 .build();
 
+        var latch = new CountDownLatch(1);
         var stub = RemoteNumServiceGrpc.newStub(channel);
         new GRPCClient().clientAction(stub);
         log.info("client finished...");
+        latch.await();
         channel.shutdown();
-
     }
 
     private void clientAction(RemoteNumServiceGrpc.RemoteNumServiceStub stub) {
