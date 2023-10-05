@@ -1,2 +1,2 @@
-# otus_java_pro_2023
+# otus-java-pro-homeworks-12-2022
 ДЗ БОНДАРЕВА ФЕДОРА
